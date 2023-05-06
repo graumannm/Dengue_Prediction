@@ -14,12 +14,9 @@ import matplotlib.pyplot as plt
 
 from preproc import preprocess_data
 
-# from inspect_data import save_fig
-
-# global variables (extra variable file?)
+# global variables
 # seed = 42
 test_ratio = 0.25
-
 data_path = "data-processed/"
 
 interpolation = True
@@ -34,6 +31,7 @@ preprocess_string = "All_lagged_and_mm"
 X_path = "data-processed/dengue_features_train.csv"
 y_path = "data-processed/dengue_labels_train.csv"
 
+# preprocess data
 [X_sj, y_sj, X_iq, y_iq] = preprocess_data(
     X_path=X_path,
     interpolation=interpolation,
@@ -42,11 +40,8 @@ y_path = "data-processed/dengue_labels_train.csv"
     interaction=interaction,
     ylabels=True,
 )
-# X_sj = pd.read_csv(data_path + data_string + "Xsj.csv")
-# y_sj = pd.read_csv(data_path + data_string + "ysj.csv")
-# X_iq = pd.read_csv(data_path + data_string + "Xiq.csv")
-# y_iq = pd.read_csv(data_path + data_string + "yiq.csv")
 
+# split train test
 X_sj_train, X_sj_test, y_sj_train, y_sj_test = train_test_split(
     X_sj, y_sj, test_size=test_ratio, shuffle=False
 )
@@ -55,24 +50,7 @@ X_iq_train, X_iq_test, y_iq_train, y_iq_test = train_test_split(
 )
 
 
-# X_data = pd.read_csv("./data-processed/dengue_features_train.csv")
-# y_data = pd.read_csv("./data-processed/dengue_labels_train.csv")
-
-# split cities
-# mask_sj = X_data.loc[:, "city"] == "sj"
-# mask_iq = X_data.loc[:, "city"] == "iq"
-
-# X_sj = X_data.loc[mask_sj, :]
-# y_sj = y_data.loc[mask_sj, "total_cases"]
-# X_iq = X_data.loc[mask_iq, :]
-# y_iq = y_data.loc[mask_iq, "total_cases"]
-
-
-########
-# start Pipeline here
-# preprocessing
-# easy wrangle NANs
-# df.fillna(method='ffill', inplace=True) # bfill: use next valid observation to fill gap
+# fill nans
 class FillImputer(BaseEstimator, TransformerMixin):
     def __init__(self, method="ffill"):
         self.method = method
@@ -85,7 +63,6 @@ class FillImputer(BaseEstimator, TransformerMixin):
         return X
 
 
-# transform datetime
 # transform weeks, assuming that weekofyear is in the index
 class SinCosWeekTransformer(BaseEstimator, TransformerMixin):
     def __init__(self):
@@ -131,6 +108,7 @@ class Preproc(BaseEstimator, TransformerMixin):
         return X
 
 
+# model pipeline for grid search
 model_pipeline = Pipeline(
     [
         #         ("imputer", FillImputer()),
@@ -142,26 +120,8 @@ model_pipeline = Pipeline(
     ]
 )
 
-# !!! model_voting_pipeline =
-
-# # fit and predict San Juan
-# model_pipeline.fit(X_sj_train, y_sj_train)
-# y_sj_pred = model_pipeline.predict(X_sj_test)
-# my_mse_sj = metrics.mean_squared_error(y_sj_test, y_sj_pred)
-
-# print(my_mse_sj)
-
-# # fit and predict Iquitos
-# model_pipeline.fit(X_iq_train, y_iq_train)
-# y_iq_pred = model_pipeline.predict(X_iq_test)
-# my_mse_iq = metrics.mean_squared_error(y_iq_test, y_iq_pred)
-
-# print(my_mse_iq)
-# model
-# choose models
-
-# do grit/random search
-
+#### grit search
+# grid search parameters
 parameters_grid_rf = [
     {
         "rf__n_estimators": [3, 10, 30, 100],
@@ -186,12 +146,10 @@ parameters_grid_gbr = [
     }
 ]
 
-# grid search RandomForest
+# grid search
 grid_search_pip = GridSearchCV(model_pipeline, parameters_grid_gbr, cv=3)
 
-# grid search SVM
-
-
+# evaluate models
 grid_search_pip.fit(X_sj_train, y_sj_train)
 final_train_model_sj = grid_search_pip.best_estimator_
 best_train_param_sj = grid_search_pip.best_params_
@@ -227,39 +185,13 @@ my_mse_iq = metrics.mean_squared_error(y_iq_test, y_iq_pred)
 print("param on iq:", final_model_iq.get_params())
 print("whole train set mse_iq: ", my_mse_iq)
 
-# track model parameters
-
-# validation data
-
+# safe predictions
 y_sj_test = y_sj_test.to_frame()
 y_iq_test = y_iq_test.to_frame()
 y_sj_test.loc[:, "pred_cases"] = y_sj_pred
 y_iq_test.loc[:, "pred_cases"] = y_iq_pred
 y_sj_test.to_csv("data-processed/" + "sj_" + preprocess_string + "_gb" + ".csv")
 y_iq_test.to_csv("data-processed/" + "iq_" + preprocess_string + "_gb" + ".csv")
-print(
-    "mse_sj: ", metrics.mean_squared_error(y_sj_test.iloc[:, 0], y_sj_test.iloc[:, 1])
-)
-print(
-    "mse_iq: ", metrics.mean_squared_error(y_iq_test.iloc[:, 0], y_iq_test.iloc[:, 1])
-)
-
-
-# # visualize results
-# y_sj_p = y_sj.copy()
-# y_sj_p.iloc[-len(y_sj_pred) :] = y_sj_pred
-# total = pd.concat(
-#     [
-#         y_sj,
-#         y_sj_p,
-#     ],
-#     axis=1,
-# )
-# plt.close()
-# plt.clf()
-# total.plot()
-# save_fig("model_time_sj_real_vs_pred")
-
 
 # submission
 sj_test, sj_y, iq_test, iq_y = preprocess_data(
@@ -277,3 +209,19 @@ submission = pd.read_csv("data-processed/submission_format.csv", index_col=[0, 1
 
 submission.total_cases = np.concatenate([sj_predictions, iq_predictions])
 submission.to_csv("data-processed/" + preprocess_string + "_gb" + ".csv")
+
+
+# # visualize results
+# y_sj_p = y_sj.copy()
+# y_sj_p.iloc[-len(y_sj_pred) :] = y_sj_pred
+# total = pd.concat(
+#     [
+#         y_sj,
+#         y_sj_p,
+#     ],
+#     axis=1,
+# )
+# plt.close()
+# plt.clf()
+# total.plot()
+# save_fig("model_time_sj_real_vs_pred")
