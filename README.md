@@ -33,6 +33,16 @@ Prediction: Once we selected the best model based on its performance, we used it
 
 
 ## Plots
+Here are histograms highlighting our predictions for each location.
+
+### Random Forest
+![image](https://user-images.githubusercontent.com/130439108/236619117-07e40945-a948-4c84-beff-b5601cdfa8bd.png)
+![image](https://user-images.githubusercontent.com/130439108/236619087-e8855ad3-8896-4b16-8dfe-d4af46ad5aeb.png)
+
+### SVR
+![image](https://user-images.githubusercontent.com/130439108/236619263-349cc4f7-d0b0-4e42-a5ec-1bfa52d9410e.png)
+![image](https://user-images.githubusercontent.com/130439108/236619276-a78f6d2c-0539-4d22-a2eb-7136f1712ef5.png)
+
 
 ## Conclusion
 
