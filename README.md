@@ -13,19 +13,28 @@ The challenge aimed to foster innovation in the field of ML and contribute to th
 ## Approach
 To tackle the challenge, we implemented a pipeline-based approach that involved several steps. The following is an overview of our methodology:
 
-Data Preprocessing: To ensure high-quality inputs for our ML models, we performed data preprocessing tasks, including data cleaning, handling missing values, and feature engineering.
+Data preprocessing: To ensure high-quality inputs for our ML models, we performed data preprocessing tasks, including data cleaning, handling missing values, and feature engineering.
 
-Feature Selection: We carefully selected the most relevant features that could contribute to accurate predictions, considering their correlation with dengue fever cases.
+Feature selection: We carefully selected the most relevant features that could contribute to accurate predictions, considering their correlation with dengue fever cases.
+
+Handling missing values: To counteract gaps in the data, we used interpolation to predict a value based on the next valid observation.  
 
 Normalisation: As part of the data preparation process, we applied the min/max normalisation technique to standardise the features and bring them to a similar scale. This step ensured that no particular feature dominated the learning process.
 
-Model Training: We experimented with various classifiers, such as decision trees, random forests, and support vector machines (SVM), to identify the best-performing model. We trained these models using the preprocessed and normalised data.
+Adding lag to features: Following research, we added a lag of two weeks to account for the incubation period of humans.
 
-Model Evaluation: We evaluated the performance of each model using appropriate evaluation metrics, such as mean squared error (MSE) or mean absolute error (MAE), to assess their predictive capabilities.
+Creating interaction feature: After exploring the data, it became clear that there was a relationship between humidity, temperature and case numbers. We foudn that above 42% humidity and 24 degrees celsius is when mosquitos thrive. Data was then categorised as either meeting this criteria (1), or not (0). 
+
+Model training: We experimented with various classifiers, such as decision trees, random forests, and support vector machines (SVM), to identify the best-performing model. We trained these models using the preprocessed and normalised data.
+
+Model evaluation: We evaluated the performance of each model using appropriate evaluation metrics, such as mean squared error (MSE) or mean absolute error (MAE), to assess their predictive capabilities.
 
 Prediction: Once we selected the best model based on its performance, we used it to make predictions on future case numbers.
 
 
+## Plots
+
+## Conclusion
 
 
 
