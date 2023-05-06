@@ -1,5 +1,22 @@
 # DengAI: Predicting Disease Spread Challenge
 
+## Repository tree
+```
+.
+└── mini_comp/
+    ├── data/
+    │   ├── preprocessed data/
+    │   │   ├── dengue_features_test.csv
+    │   │   ├── dengue_features_train.csv
+    │   │   └── dengue_labels_train.csv
+    │   └── Dengue_data_description.txt
+    ├── README.md
+    ├── my_preproc.ipynb
+    ├── pipeline_v1.py
+    ├── preproc.py
+    └── requirements.txt
+```
+
 ## Background
 This GitHub repository contains the code and resources for the DengAI: Predicting Disease Spread challenge, hosted by DataDriven (https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/). The challenge aimed to address the problem of predicting the number of dengue fever cases in a given region. Dengue fever is a mosquito-borne viral disease that affects millions of people worldwide, especially in tropical and subtropical regions.
 
