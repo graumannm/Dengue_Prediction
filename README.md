@@ -33,7 +33,7 @@ Prediction: Once we selected the best model based on its performance, we used it
 
 
 ## Plots
-Here are histograms highlighting our predictions for each location.
+Here are figures highlighting our predictions for each location.
 
 ### Random Forest
 ![image](https://user-images.githubusercontent.com/130439108/236619117-07e40945-a948-4c84-beff-b5601cdfa8bd.png)
