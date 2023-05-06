@@ -54,6 +54,8 @@ Here are figures highlighting our predictions for each location.
 ## Conclusion
 Following our evaluations of each model, it was clear that the Random forest was the best at predicting future case numbers, based on the MSE.
 
+In future, to improve our methods, we could include the feature engineering in the grid search and attept different combinations.
+
 
 
 
