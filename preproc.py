@@ -1,17 +1,7 @@
 import pandas as pd
 import numpy as np
 
-# run all preprocessing steps on both cities, then in last step seperate them
-
-# load data
-# X_path = "data-processed/dengue_features_train.csv"
-# y_path = "data-processed/dengue_labels_train.csv"
-
-# interpolation = True
-# norm          = True
-# mylag         = 2
-# interaction   = True
-# labels        = True
+# preprocessing function
 
 
 def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
@@ -109,7 +99,3 @@ def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
         y_iq = []
 
     return X_sj, y_sj, X_iq, y_iq
-
-
-# remove df later again, just for debugging
-# [X_sj, y_sj, X_iq, y_iq] = preprocess_data(X_path, True)
