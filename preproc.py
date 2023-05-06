@@ -5,7 +5,9 @@ import numpy as np
 
 
 def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
+    # preprocessing function
     # Input:
+    # x_path: feature data path
     # interpolation: bool, True=backfill, False=forward fill
     # norm: True=normalization, false= standardization
     # mylag: 1= 1 week for example, use 0 for no lag
@@ -20,7 +22,7 @@ def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
     if interpolation == True:
         mymethod = "bfill"
     else:
-        mymethod = "bfill"
+        mymethod = "ffill"
 
     # implement it
     df.fillna(
@@ -33,22 +35,15 @@ def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
     else:
         df = (df - df.mean()) / df.std()  # standarization
 
-    ### add lag of 3 weeks for 4 variables below ###
-
-    # and remove original ones
-    # max temp, precipitation, humidity and avgerage temp
+    ### add lag of mylag weeks and remove original ones ###
     lag = mylag
     var2change = list(df.columns.values)
-    # ['station_max_temp_c',
-    #'station_precip_mm',
-    #'reanalysis_relative_humidity_percent',
-    #'station_avg_temp_c']
 
     new_names = []
     for i, j in enumerate(var2change):
         new_names.append(j + "_lag")
 
-        df[new_names[i]] = df[var2change[i]].shift(lag)  # Lagged by 1 time step
+        df[new_names[i]] = df[var2change[i]].shift(lag)
 
         # remove original
         df = df.drop(var2change[i], axis=1)
@@ -57,8 +52,6 @@ def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
     df.fillna(method=mymethod, inplace=True)
 
     ### create interaction features
-
-    # humidity above 42 % temperature above 24 degrees
     if interaction == True:
         df["Humid_X_Temp26"] = np.where(
             (df["reanalysis_relative_humidity_percent_lag"] >= 42)
@@ -66,10 +59,6 @@ def preprocess_data(X_path, interpolation, norm, mylag, interaction, ylabels):
             1,
             0,
         )
-
-    # below one did not work
-    # temperature after rain. Use rain vs. lagged temp var
-    # df['Temp_X_rain'] = np.where((df['station_precip_mm_lag'] >= 600) & (df['station_avg_temp_c_lag'] >= 24), 1, 0)
 
     # if its not submission, load y data
     if ylabels == True:
