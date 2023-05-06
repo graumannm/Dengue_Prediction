@@ -1,8 +1,18 @@
 # DengAI: Predicting Disease Spread Challenge
 
 ## Repository tree 
-
-
+mini-comp/
+├── data/
+│   ├── Processed data/
+│   │   ├── dengue_features_test.csv
+│   │   ├── dengue_features_train.csv
+│   │   ├── dengue_labels_train.csv
+│   ├── Dengue_data_description.txt
+├── README.md
+├── my_preproc.ipynb
+├── pipeline_v1.py
+├── preproc.py
+├── requirements.txt
 
 ## Background
 This GitHub repository contains the code and resources for the DengAI: Predicting Disease Spread challenge, hosted by DataDriven (https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/). The challenge aimed to address the problem of predicting the number of dengue fever cases in a given region. Dengue fever is a mosquito-borne viral disease that affects millions of people worldwide, especially in tropical and subtropical regions.
@@ -50,7 +60,7 @@ Parameters: We selected 3 decisions per tree and selected 100 trees.
 ![image](https://user-images.githubusercontent.com/130439108/236619263-349cc4f7-d0b0-4e42-a5ec-1bfa52d9410e.png)
 ![image](https://user-images.githubusercontent.com/130439108/236619276-a78f6d2c-0539-4d22-a2eb-7136f1712ef5.png)
 
-Parameters: We used the auto setting for the reach of each training example and specified the kernels
+Parameters: We used the auto setting for the reach of each training example and specified the kernels.
 
 ### Gradient Boost
 ![image](https://user-images.githubusercontent.com/130439108/236620333-54dc8886-1a8a-40c7-a0b9-fc084925b5d0.png)
