@@ -10,6 +10,20 @@
     │   │   ├── dengue_features_train.csv
     │   │   └── dengue_labels_train.csv
     │   └── Dengue_data_description.txt
+    ├── figures/
+    │   ├── Iquitos: Gradient Boosting Classifier.png
+    │   ├── Iquitos: Random Forest.png
+    │   ├── Iquitos: SVR.png
+    │   ├── San Juan: Gradient Boosting Classifier.png
+    │   ├── San Juan: Random Forest.png
+    │   └── San Juan: SVR.png
+    ├── results/
+    │   ├── iq_All_lagged_and_mm_gb.csv
+    │   ├── iq_All_lagged_and_mm_rf.csv
+    │   ├── iq_All_lagged_and_mm_svr.csv
+    │   ├── sj_All_lagged_and_mm_gb.csv
+    │   ├── sj_All_lagged_and_mm_rf.csv
+    │   └── sj_All_lagged_and_mm_svr.csv
     ├── README.md
     ├── my_preproc.ipynb
     ├── pipeline_v1.py
@@ -57,17 +71,17 @@ Here are figures highlighting our predictions for each location.
 ### SVR
 ![image](https://user-images.githubusercontent.com/130439108/236619263-349cc4f7-d0b0-4e42-a5ec-1bfa52d9410e.png)
 ![image](https://user-images.githubusercontent.com/130439108/236619276-a78f6d2c-0539-4d22-a2eb-7136f1712ef5.png)
-
+Parameters: For SJ we used 1/the number of features and polynominal for IQ.
 
 ### Gradient Boost
 ![image](https://user-images.githubusercontent.com/130439108/236620333-54dc8886-1a8a-40c7-a0b9-fc084925b5d0.png)
 ![image](https://user-images.githubusercontent.com/130439108/236620338-f3a430f9-c327-4ac7-ac4e-185475583f30.png)
-
+Parameters: The maximum number of decisions a tree could make was 3, the total number of features to consider was 0.9 and there were 5 trees.
 
 ### Random Forest
 ![image](https://user-images.githubusercontent.com/130439108/236619117-07e40945-a948-4c84-beff-b5601cdfa8bd.png)
 ![image](https://user-images.githubusercontent.com/130439108/236619087-e8855ad3-8896-4b16-8dfe-d4af46ad5aeb.png)
-
+Parameters: The maximum number of decisions a tree could make was 3 and there were 100 trees.
 
 ## Conclusion
 Following our evaluations of each model, it was clear that the Random forest was the best at predicting future case numbers, based on the MSE.
