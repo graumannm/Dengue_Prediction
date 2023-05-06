@@ -25,9 +25,11 @@ Adding lag to features: Following research, we added a lag of two weeks to accou
 
 Creating interaction feature: After exploring the data, it became clear that there was a relationship between humidity, temperature and case numbers. We found that above 42% humidity and 24 degrees celsius is when mosquitos thrive. Data was then categorised as either meeting this criteria (1), or not (0). 
 
-Model training: We experimented with various classifiers, such as decision trees, random forests, and support vector machines (SVM), to identify the best-performing model. We trained these models using the preprocessed and normalised data.
+Model training: We experimented with various classifiers, such as decision trees, random forests, and support vector machines (SVM), to identify the best-performing model. We trained these models using the preprocessed and normalised data. 
 
-Model evaluation: We evaluated the performance of each model using appropriate evaluation metrics, such as mean squared error (MSE) or mean absolute error (MAE), to assess their predictive capabilities.
+Grid search: We conducted a grid search to extract the best parameters, depending on the training data, that we split further into train and test. 
+
+Model evaluation: We evaluated the performance of each model using appropriate evaluation metrics, in our case the mean squared error (MSE), to assess their predictive capabilities.
 
 Prediction: Once we selected the best model based on its performance, we used it to make predictions on future case numbers.
 
@@ -39,23 +41,18 @@ Here are figures highlighting our predictions for each location.
 ![image](https://user-images.githubusercontent.com/130439108/236619117-07e40945-a948-4c84-beff-b5601cdfa8bd.png)
 ![image](https://user-images.githubusercontent.com/130439108/236619087-e8855ad3-8896-4b16-8dfe-d4af46ad5aeb.png)
 
-Parameters: We selected 3 decisions per tree and selected 100 trees.
-
 
 ### SVR
 ![image](https://user-images.githubusercontent.com/130439108/236619263-349cc4f7-d0b0-4e42-a5ec-1bfa52d9410e.png)
 ![image](https://user-images.githubusercontent.com/130439108/236619276-a78f6d2c-0539-4d22-a2eb-7136f1712ef5.png)
 
-Parameters: We used the auto setting for the reach of each training example and specified the kernels.
 
 ### Gradient Boost
 ![image](https://user-images.githubusercontent.com/130439108/236620333-54dc8886-1a8a-40c7-a0b9-fc084925b5d0.png)
 ![image](https://user-images.githubusercontent.com/130439108/236620338-f3a430f9-c327-4ac7-ac4e-185475583f30.png)
 
-Parameters:
-
 ## Conclusion
-
+Following our evaluations of each model, it was clear that the Random forest was the best at predicting future case numbers, based on the MSE.
 
 
 
